@@ -1,0 +1,32 @@
+#include <iostream>
+#include <string>
+#include <unordered_set>
+using namespace std;
+int func(string s) {
+    int n = s.size();
+    if (n == 0) {
+        return 0;
+    }
+
+    unordered_set<char> chars;
+    int ma = 0;
+    int left = 0;
+
+    for (int right = 0; right < n; right++) {
+        while (chars.find(s[right]) != chars.end()) {
+            chars.erase(s[left]);
+            left++;
+        }
+        chars.insert(s[right]);
+        ma = max(ma, right - left + 1);
+    }
+
+    return ma;
+}
+
+int main() {
+    string s;
+    cin >> s; 
+    cout << func(s);
+    return 0;
+}
